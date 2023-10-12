@@ -31,6 +31,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
+import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 import '../classifier/classifier.dart';
 import '../styles.dart';
 import 'plant_photo_view.dart';
@@ -81,6 +82,19 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
       modelFileName: _modelFileName,
     );
     _classifier = classifier!;
+  }
+
+  static Future<List<String>> _loadLabels(String labelsFileName) async {
+    // #1
+    final List<String> rawLabels = await FileUtil.loadLabels(labelsFileName);
+
+    // #2
+    final List<String> labels = rawLabels
+        .map((label) => label.substring(label.indexOf(' ')).trim())
+        .toList();
+
+    debugPrint('Labels: $labels');
+    return labels;
   }
 
   @override
