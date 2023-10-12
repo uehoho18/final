@@ -50,7 +50,7 @@ class PlantPhotoView extends StatelessWidget {
   Widget _buildEmptyView() {
     return const Center(
         child: Text(
-      'Please pick a photo',
+      '写真を選んで下さい',
       style: kAnalyzingTextStyle,
     ));
   }
